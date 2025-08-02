@@ -1,6 +1,6 @@
-package airport.management.system.staff.model;
+package airport.management.system.staffModule.model;
 
-import airport.management.system.airport.model.Airport;
+import airport.management.system.airportModule.model.Airport;
 import airport.management.system.flightModule.model.Flight;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

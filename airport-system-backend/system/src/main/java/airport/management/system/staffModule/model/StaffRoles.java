@@ -1,4 +1,4 @@
-package airport.management.system.staff.model;
+package airport.management.system.staffModule.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

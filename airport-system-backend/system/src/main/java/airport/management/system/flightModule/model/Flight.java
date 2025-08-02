@@ -1,7 +1,7 @@
 package airport.management.system.flightModule.model;
 
-import airport.management.system.airport.model.Airport;
-import airport.management.system.staff.model.Staff;
+import airport.management.system.airportModule.model.Airport;
+import airport.management.system.staffModule.model.Staff;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
