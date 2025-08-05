@@ -1,5 +1,6 @@
 package airport.management.system.passengerModule.model;
 
+import airport.management.system.AddressModule.model.Address;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +8,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -43,8 +45,10 @@ public class Passenger {
     @NotBlank
     private String phoneNumber;
 
-    @NotBlank
-    private String address;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToOne(mappedBy = "passenger", cascade = CascadeType.ALL)
+    private Address address;
 
     @NotBlank
     private String passportNumber;
@@ -54,5 +58,20 @@ public class Passenger {
 
     @NotBlank
     private String nationality;
+
+    @OneToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JoinColumn(name = "passenger_govt_fk_id")
+    private PassengerGovtId passengerGovtId;
+
+    @NotBlank
+    private LocalDateTime createdAt;
+
+    @NotBlank
+    private LocalDateTime updatedAt;
+
+    @Column(nullable = false)
+    private boolean isActive;
 
 }

@@ -1,13 +1,8 @@
 package airport.management.system.passengerModule.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
 @Data
 @Entity
@@ -19,5 +14,14 @@ public class PassengerGovtId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long passengerGovtId;
+
+    @NotBlank
+    @Enumerated(EnumType.STRING)
+    private GovtId govtId;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToOne(mappedBy = "passengerGovtId", cascade = CascadeType.ALL)
+    private Passenger passenger;
 
 }
