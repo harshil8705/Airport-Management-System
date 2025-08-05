@@ -1,23 +1,39 @@
 ## Airport Management System
+
 ---
--> This is the Enterprise Level huge, scalable, secure, and AI powered backend System of Airport Management System.
-/br
--> This Project is currently in the Development and I am working on this project consistently.
-/br
--> As of Now I am desigining the Low Level Design for the Airport Management System in Java, using Spring Boot, Spring Data JPA and temperory relational database: H2 Console.
-/br
 
--> Updates that I've planned to bring into this System:
-- Use of DTO's for Response and Request of different functionallity of this System.
-- Basic CRUD Operations on each entity of the database.
-- Secure this System with Spring Security, enabling the Role based access to the different functionallity of this System.
-- Passenger Authentication and Authorization.
-- Integrating the AI chatbot that interacts with the Database and provides the accurate answer according to the user prompt and does the work on behalf of User.
+**This is an enterprise-level, scalable, secure, and AI-powered backend system for Airport Management.**
 
--> After completing all this stuff, if the time gives permission I will be adding the AI Powered Reccomendation System that recommends different Airport to the passenger based on the passengers interaction with this System.
--> This AI Powered Recommendation System will be made by using Python's famous AI Library - Scikit Learn and the Flask web Framework for the airport reccomendation microservice.
--> SO yaa this will take time in building this huge Enterprise Level backend system of Airport Management System but yaa I am consistently working on this project and building this every single day.
+<br>
+
+**This project is currently under development, and I’m consistently working on it.**
+
+<br>
+
+**As of now, I’m designing the Low-Level Design (LLD) for the system using Java, Spring Boot, Spring Data JPA, and a temporary in-memory relational database: H2 Console.**
+
+<br>
+
+### Planned Updates
+
+- Use of **DTOs** for handling request and response models across different functionalities.
+- Implementing **basic CRUD operations** on each database entity.
+- **Securing** the system using **Spring Security**, enabling **role-based access** for various features.
+- Building **Passenger Authentication and Authorization** flows.
+- Integrating an **AI chatbot** that interacts with the database, answers user queries, and performs tasks on behalf of users.
+
+<br>
+
+After completing the core modules, I plan to implement an **AI-powered Recommendation System** that suggests airports to passengers based on their system interactions.
+
+This AI system will be developed using **Python's Scikit-learn** library and exposed as a microservice using the **Flask** web framework.
+
+<br>
+
+Yeah, building this enterprise-grade backend system will take time, but I’m working on it **consistently** — day in and day out.
+
 ---
-Once Again Thank You for being part of my journey on building of enterprise level backend system of Aiport Mangement System.
 
-### Thank You
+**Thanks for being part of my journey in building this enterprise-level backend for Airport Management.**
+
+### Thank You!
