@@ -5,13 +5,16 @@ import airport.management.system.flightModule.model.Flight;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
 
+@Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Staff {
 
     @Id
@@ -40,7 +43,7 @@ public class Staff {
     @OneToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "staff_roles_fk_id")
+    @JoinColumn(name = "staff_role_fk_id")
     private StaffRoles staffRoles;
 
     @OneToOne

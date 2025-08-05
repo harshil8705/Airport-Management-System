@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Entity
@@ -20,11 +21,10 @@ public class Aircraft {
     @NotBlank
     private Integer aircraftSeats;
 
-    @OneToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "aircraft_maintenance_status_fk_id")
-    private AircraftMaintenanceStatus aircraftMaintenanceStatus;
+    @OneToMany(mappedBy = "aircraft", cascade = CascadeType.ALL)
+    private Set<AircraftMaintenanceStatus> aircraftMaintenanceStatus;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

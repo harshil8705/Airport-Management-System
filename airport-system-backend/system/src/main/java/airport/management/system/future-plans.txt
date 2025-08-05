@@ -1,0 +1,10 @@
+| Entity                    | Why Add It                                                        |
+| ------------------------- | ----------------------------------------------------------------- |
+| **Passenger**             | To link users to flights, bookings, and baggage.                  |
+| **Booking / Reservation** | Manage ticket bookings with payment status, seat assignment, etc. |
+| **Check-In**              | Tracks boarding pass issued, seat assigned, luggage count.        |
+| **Boarding Pass**         | For check-in and boarding workflows.                              |
+| **Gate**                  | For managing flight departures and arrivals per terminal/gate.    |
+| **Terminal**              | To manage airport infrastructure.                                 |
+| **Runway**                | For scheduling aircraft takeoffs/landings.                        |
+| **Luggage / Baggage**     | For luggage tracking and lost baggage management.                 |

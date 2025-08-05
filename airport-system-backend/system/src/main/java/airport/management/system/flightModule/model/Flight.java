@@ -28,7 +28,7 @@ public class Flight {
     @OneToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "aircraft")
+    @JoinColumn(name = "aircraft_fk_id")
     private Aircraft aircraft;
 
     @ManyToOne
@@ -44,15 +44,12 @@ public class Flight {
     private Airport destinationAirport;
 
     @NotBlank
-    private String destination;
-
-    @NotBlank
     private boolean status;
 
     @OneToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "flight_states_fk_id")
+    @JoinColumn(name = "flight_state_fk_id")
     private FlightState flightState;
 
     @ToString.Exclude
