@@ -1,9 +1,27 @@
 package airport.management.system.passengerModule.model;
 
-public enum Gender {
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
-    MALE,
-    FEMALE,
-    OTHER
+@Data
+@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Gender {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long genderId;
+
+    @NotBlank
+    @Enumerated(EnumType.STRING)
+    private GenderEnum gender;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToOne(mappedBy = "passengerGender", cascade = CascadeType.ALL)
+    private Passenger passenger;
 
 }

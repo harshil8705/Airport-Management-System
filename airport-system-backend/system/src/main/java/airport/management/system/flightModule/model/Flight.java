@@ -1,6 +1,7 @@
 package airport.management.system.flightModule.model;
 
 import airport.management.system.airportModule.model.Airport;
+import airport.management.system.reservationModule.model.Reservation;
 import airport.management.system.staffModule.model.Staff;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -50,11 +51,16 @@ public class Flight {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "flight_state_fk_id")
-    private FlightState flightState;
+    private FlightStatus flightStatus;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "assignedFlight", cascade = CascadeType.ALL)
     private List<Staff> staff;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
 
 }

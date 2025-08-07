@@ -1,14 +1,28 @@
 package airport.management.system.flightModule.model;
 
-public enum MaintenanceStatus {
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
-    OPERATIONAL,
-    SCHEDULED_MAINTENANCE,
-    UNSCHEDULED_MAINTENANCE,
-    UNDER_INSPECTION,
-    REPAIR_IN_PROGRESS,
-    AWAITING_PARTS,
-    GROUNDED,
-    RETIRED
+@Data
+@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class MaintenanceStatus {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long aircraftMaintenanceId;
+
+    @NotBlank
+    @Enumerated(EnumType.STRING)
+    private MaintenanceStatusEnum maintenanceStatus;
+
+    @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JoinColumn(name = "aircraft_fk_id")
+    private Aircraft aircraft;
 
 }

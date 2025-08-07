@@ -24,7 +24,7 @@ public class Aircraft {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "aircraft", cascade = CascadeType.ALL)
-    private Set<AircraftMaintenanceStatus> aircraftMaintenanceStatus;
+    private Set<MaintenanceStatus> maintenanceStatus;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

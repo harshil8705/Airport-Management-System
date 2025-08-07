@@ -1,6 +1,7 @@
 package airport.management.system.passengerModule.model;
 
-import airport.management.system.AddressModule.model.Address;
+import airport.management.system.addressModule.model.Address;
+import airport.management.system.reservationModule.model.Reservation;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -33,7 +35,7 @@ public class Passenger {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "passenger_gender_fk_id")
-    private PassengerGender passengerGender;
+    private Gender passengerGender;
 
     @NotBlank
     private LocalDate dateOfBirth;
@@ -63,7 +65,7 @@ public class Passenger {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "passenger_govt_fk_id")
-    private PassengerGovtId passengerGovtId;
+    private GovtId passengerGovtId;
 
     @NotBlank
     private LocalDateTime createdAt;
@@ -73,5 +75,10 @@ public class Passenger {
 
     @Column(nullable = false)
     private boolean isActive;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
 
 }

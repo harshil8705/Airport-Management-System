@@ -1,16 +1,27 @@
 package airport.management.system.flightModule.model;
 
-public enum FlightStatus {
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
-    SCHEDULED,
-    BOARDING,
-    GATE_CLOSED,
-    DELAYED,
-    IN_AIR,
-    DIVERTED,
-    LANDED,
-    CANCELLED,
-    RETURNED_TO_GATE,
-    EMERGENCY_LANDING
+@Data
+@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class FlightStatus {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long flightStateId;
+
+    @NotBlank
+    @Enumerated(EnumType.STRING)
+    private FlightStatusEnum flightStatus;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToOne(mappedBy = "flightStatus", cascade = CascadeType.ALL)
+    private Flight flight;
 
 }

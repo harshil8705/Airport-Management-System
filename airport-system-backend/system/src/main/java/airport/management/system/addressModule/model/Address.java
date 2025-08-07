@@ -1,4 +1,4 @@
-package airport.management.system.AddressModule.model;
+package airport.management.system.addressModule.model;
 
 import airport.management.system.passengerModule.model.Passenger;
 import jakarta.persistence.*;

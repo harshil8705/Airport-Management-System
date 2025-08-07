@@ -1,4 +1,4 @@
-package airport.management.system.flightModule.model;
+package airport.management.system.reservationModule.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -9,20 +9,21 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AircraftMaintenanceStatus {
+public class ReservationStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long aircraftMaintenanceId;
+    private Long reservationStatusId;
 
     @NotBlank
     @Enumerated(EnumType.STRING)
-    private MaintenanceStatus maintenanceStatus;
+    private ReservationStatusEnum reservationStatus;
 
-    @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "aircraft_fk_id")
-    private Aircraft aircraft;
+    @OneToOne(mappedBy = "reservationStatus", cascade = CascadeType.ALL)
+    private Reservation reservation;
+
+
 
 }
