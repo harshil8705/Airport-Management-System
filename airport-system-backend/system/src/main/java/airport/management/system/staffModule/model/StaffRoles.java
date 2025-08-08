@@ -2,6 +2,7 @@ package airport.management.system.staffModule.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -15,9 +16,9 @@ public class StaffRoles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long staffRoleId;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
-    private StaffRole staffRole;
+    private StaffRolesEnum staffRoles;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

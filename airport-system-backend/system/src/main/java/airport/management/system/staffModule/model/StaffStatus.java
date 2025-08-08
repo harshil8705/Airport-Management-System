@@ -1,12 +1,27 @@
 package airport.management.system.staffModule.model;
 
-public enum StaffStatus {
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
-    ACTIVE,
-    ON_DUTY,
-    OFF_DUTY,
-    ON_LEAVE,
-    RETIRED,
-    TERMINATED
+@Data
+@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class StaffStatus {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long staffStatesId;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private StaffStatusEnum staffStatus;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToOne(mappedBy = "staffStates", cascade = CascadeType.ALL)
+    private Staff staff;
 
 }

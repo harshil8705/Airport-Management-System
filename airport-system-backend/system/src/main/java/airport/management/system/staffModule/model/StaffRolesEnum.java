@@ -1,6 +1,6 @@
 package airport.management.system.staffModule.model;
 
-public enum StaffRole {
+public enum StaffRolesEnum {
 
     PILOT,
     CABIN_CREW,

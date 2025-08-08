@@ -2,6 +2,7 @@ package airport.management.system.flightModule.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -18,7 +19,7 @@ public class Aircraft {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long aircraftId;
 
-    @NotBlank
+    @NotNull
     private Integer aircraftSeats;
 
     @ToString.Exclude
@@ -31,10 +32,10 @@ public class Aircraft {
     @OneToOne(mappedBy = "aircraft", cascade = CascadeType.ALL)
     private Flight flight;
 
-    @NotBlank
+    @NotNull
     private LocalDateTime arrivalTime;
 
-    @NotBlank
+    @NotNull
     private LocalDateTime departureTime;
 
 }

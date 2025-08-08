@@ -1,4 +1,4 @@
-package airport.management.system.flightModule.model;
+package airport.management.system.terminalModule.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -10,19 +10,19 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FlightStatus {
+public class TerminalType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long flightStateId;
+    private Long terminalTypeId;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private FlightStatusEnum flightStatus;
+    private TerminalTypeEnum terminalTypeEnum;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToOne(mappedBy = "flightStatus", cascade = CascadeType.ALL)
-    private Flight flight;
+    @OneToOne(mappedBy = "terminalType", cascade = CascadeType.ALL)
+    private Terminal terminal;
 
 }

@@ -5,6 +5,7 @@ import airport.management.system.flightModule.model.Flight;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -34,30 +35,34 @@ public class Staff {
     @Column(unique = true)
     private String phoneNumber;
 
-    @NotBlank
+    @NotNull
     private LocalDate dateOfJoining;
 
-    @NotBlank
+    @NotNull
     private LocalDate dateOfBirth;
 
+    @NotNull
     @OneToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "staff_role_fk_id")
+    @JoinColumn(name = "staff_roles_fk_id")
     private StaffRoles staffRoles;
 
+    @NotNull
     @OneToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "staff_states_fk_id")
-    private StaffStates staffStates;
+    @JoinColumn(name = "staff_status_fk_id")
+    private StaffStatus staffStatus;
 
+    @NotNull
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "assigned_flight_fk_id")
     private Flight assignedFlight;
 
+    @NotNull
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

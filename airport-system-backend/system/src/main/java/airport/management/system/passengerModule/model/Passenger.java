@@ -1,10 +1,13 @@
 package airport.management.system.passengerModule.model;
 
 import airport.management.system.addressModule.model.Address;
+import airport.management.system.flightModule.model.Flight;
+import airport.management.system.luggageModule.model.Luggage;
 import airport.management.system.reservationModule.model.Reservation;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -31,13 +34,14 @@ public class Passenger {
     @Length(max = 150)
     private String lastName;
 
+    @NotNull
     @OneToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "passenger_gender_fk_id")
     private Gender passengerGender;
 
-    @NotBlank
+    @NotNull
     private LocalDate dateOfBirth;
 
     @Email
@@ -55,30 +59,41 @@ public class Passenger {
     @NotBlank
     private String passportNumber;
 
-    @NotBlank
+    @NotNull
     private LocalDate passportExpiryDate;
 
     @NotBlank
     private String nationality;
 
+    @NotNull
     @OneToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "passenger_govt_fk_id")
     private GovtId passengerGovtId;
 
-    @NotBlank
+    @NotNull
     private LocalDateTime createdAt;
 
-    @NotBlank
+    @NotNull
     private LocalDateTime updatedAt;
 
-    @Column(nullable = false)
+    @NotNull
     private boolean isActive;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL)
+    private List<Luggage> luggage;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToOne(mappedBy = "", cascade = CascadeType.ALL)
+    private Flight flight;
 
 }

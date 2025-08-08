@@ -2,6 +2,7 @@ package airport.management.system.passengerModule.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -15,7 +16,7 @@ public class GovtId {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long passengerGovtId;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     private GovtIdEnum govtId;
 

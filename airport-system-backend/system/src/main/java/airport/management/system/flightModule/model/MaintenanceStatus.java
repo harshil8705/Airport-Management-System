@@ -2,6 +2,7 @@ package airport.management.system.flightModule.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -15,10 +16,11 @@ public class MaintenanceStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long aircraftMaintenanceId;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     private MaintenanceStatusEnum maintenanceStatus;
 
+    @NotNull
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

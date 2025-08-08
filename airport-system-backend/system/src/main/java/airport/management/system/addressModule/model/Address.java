@@ -3,6 +3,7 @@ package airport.management.system.addressModule.model;
 import airport.management.system.passengerModule.model.Passenger;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -41,6 +42,7 @@ public class Address {
     @Size(min = 5, message = "Pincode must be atleast 5 characters")
     private String pincode;
 
+    @NotNull
     @OneToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

@@ -1,4 +1,4 @@
-package airport.management.system.reservationModule.model;
+package airport.management.system.luggageModule.model;
 
 import airport.management.system.flightModule.model.Flight;
 import airport.management.system.passengerModule.model.Passenger;
@@ -7,24 +7,27 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Reservation {
+public class Luggage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reservationId;
+    private Long luggageId;
 
-    @NotBlank
-    private String seatNumber;
+    @NotBlank(message = "Luggage Tag is required")
+    private String luggageTag;
+
+    @NotNull(message = "Weight is Mandatory")
+    private Double weightInKg;
 
     @NotNull
-    private LocalDateTime reservationTime;
+    private Boolean isFragile;
+
+    private Boolean isLost = false;
 
     @NotNull
     @ManyToOne
@@ -39,19 +42,5 @@ public class Reservation {
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "flight_fk_id")
     private Flight flight;
-
-    @NotNull
-    @OneToOne
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "reservation_status_fk_id")
-    private ReservationStatus reservationStatus;
-
-    @NotNull
-    @OneToOne
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "payment_status_fk_id")
-    private PaymentStatus paymentStatus;
 
 }

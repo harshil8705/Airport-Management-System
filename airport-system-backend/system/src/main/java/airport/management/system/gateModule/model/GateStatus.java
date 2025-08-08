@@ -1,7 +1,8 @@
-package airport.management.system.staffModule.model;
+package airport.management.system.gateModule.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -9,19 +10,19 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StaffStates {
+public class GateStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long staffStatesId;
+    private Long gateStatusId;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
-    private StaffStatus staffStatus;
+    private GateStatusEnum gateStatus;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToOne(mappedBy = "staffStates", cascade = CascadeType.ALL)
-    private Staff staff;
+    @OneToOne(mappedBy = "gateStatus", cascade = CascadeType.ALL)
+    private Gate gate;
 
 }
