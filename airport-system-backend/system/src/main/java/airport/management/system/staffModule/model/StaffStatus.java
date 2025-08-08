@@ -13,7 +13,7 @@ public class StaffStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long staffStatesId;
+    private Long staffStatusId;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -21,7 +21,7 @@ public class StaffStatus {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToOne(mappedBy = "staffStates", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "staffStatus", cascade = CascadeType.ALL)
     private Staff staff;
 
 }

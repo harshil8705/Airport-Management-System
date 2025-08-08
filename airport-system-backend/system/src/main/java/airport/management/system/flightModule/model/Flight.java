@@ -89,7 +89,7 @@ public class Flight {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
-    private Luggage luggage;
+    private List<Luggage> luggage;
 
     @NotNull
     @OneToOne
