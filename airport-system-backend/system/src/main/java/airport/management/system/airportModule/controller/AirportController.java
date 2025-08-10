@@ -43,7 +43,7 @@ public class AirportController {
 
     }
 
-    @GetMapping("public/get-airport/airport-city/{city}")
+    @GetMapping("/public/get-airport/airport-city/{city}")
     public ResponseEntity<List<?>> getAirportByCity(
             @PathVariable String city,
             @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
@@ -87,6 +87,7 @@ public class AirportController {
 
     }
 
+    @DeleteMapping("/admin/delete-airport/airport-id/{airportId}")
     public ResponseEntity<?> deleteAirportById(@PathVariable Long airportId) {
 
         return new ResponseEntity<>(airportService.deleteAirportById(airportId), HttpStatus.OK);

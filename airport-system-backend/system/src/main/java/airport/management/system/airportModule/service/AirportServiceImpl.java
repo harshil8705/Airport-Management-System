@@ -182,11 +182,13 @@ public class AirportServiceImpl implements AirportService {
         existingAirport.setCity(airportRequest.getCity());
         existingAirport.setCountry(airportRequest.getCountry());
 
+        Airport updatedAirport = airportRepository.save(existingAirport);
+
         return AirportResponse.builder()
-                .airportId(existingAirport.getAirportId())
-                .airportName(existingAirport.getAirportName())
-                .city(existingAirport.getCity())
-                .country(existingAirport.getCountry())
+                .airportId(updatedAirport.getAirportId())
+                .airportName(updatedAirport.getAirportName())
+                .city(updatedAirport.getCity())
+                .country(updatedAirport.getCountry())
                 .build();
     }
 
