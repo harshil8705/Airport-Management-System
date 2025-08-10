@@ -4,6 +4,7 @@ import airport.management.system.airportModule.model.Airport;
 import airport.management.system.airportModule.repository.AirportRepository;
 import airport.management.system.airportModule.request.AirportRequest;
 import airport.management.system.airportModule.response.AirportResponse;
+import airport.management.system.exceptionModule.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,15 @@ public class AirportServiceImpl implements AirportService {
     @Override
     public Object getAirportById(Long airportId) {
 
-        return airportId;
+        Airport existingAirport = airportRepository.findById(airportId)
+                .orElseThrow(() -> new ApiException("Airport with airportId: " + airportId + " does not exists."));
+
+        return AirportResponse.builder()
+                .airportId(existingAirport.getAirportId())
+                .country(existingAirport.getCountry())
+                .city(existingAirport.getCity())
+                .airportName(existingAirport.getAirportName())
+                .build();
 
     }
 
