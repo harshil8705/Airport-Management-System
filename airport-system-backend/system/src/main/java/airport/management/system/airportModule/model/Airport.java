@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,10 +34,16 @@ public class Airport {
     @NotBlank
     private String country;
 
+    @ManyToMany
+    @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
-    private Set<AirportType> airportTypes;
+    @JoinTable(
+            name = "airport_airport_type",
+            joinColumns = @JoinColumn(name = "airport_id"),
+            inverseJoinColumns = @JoinColumn(name = "airport_type_id")
+    )
+    private Set<AirportType> airportTypes = new HashSet<>();
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

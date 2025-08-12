@@ -1,9 +1,9 @@
 package airport.management.system.airportModule.service;
 
 import airport.management.system.airportModule.model.Airport;
-import airport.management.system.airportModule.model.AirportType;
 import airport.management.system.airportModule.model.AirportTypeEnum;
 import airport.management.system.airportModule.repository.AirportRepository;
+import airport.management.system.airportModule.repository.AirportTypeRepository;
 import airport.management.system.airportModule.request.AirportRequest;
 import airport.management.system.airportModule.response.AirportResponse2;
 import airport.management.system.airportModule.utils.BuildAirportResponse;
@@ -16,7 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class AirportServiceImpl implements AirportService {
@@ -26,6 +25,9 @@ public class AirportServiceImpl implements AirportService {
 
     @Autowired
     private BuildAirportResponse airportResponse;
+
+    @Autowired
+    private AirportTypeRepository airportTypeRepository;
 
     @Override
     public Object addNewAirport(AirportRequest airportRequest) {
@@ -43,7 +45,25 @@ public class AirportServiceImpl implements AirportService {
 
         Airport newAirport = airportRepository.save(airport);
 
-        return airportResponse.buildAirportResponse(newAirport);
+        for(String str : airportRequest.getAirportType()) {
+
+            try {
+
+                AirportTypeEnum typeEnum = AirportTypeEnum.valueOf(str.toUpperCase());
+                airportTypeRepository.findByAirportType(typeEnum)
+                        .ifPresent(newAirport.getAirportTypes()::add);
+
+            } catch (RuntimeException e) {
+
+                throw new RuntimeException(e);
+
+            }
+
+        }
+
+        Airport updatedAirport = airportRepository.save(newAirport);
+
+        return airportResponse.buildAirportResponse(updatedAirport);
 
     }
 
@@ -155,10 +175,29 @@ public class AirportServiceImpl implements AirportService {
         existingAirport.setCity(airportRequest.getCity());
         existingAirport.setCountry(airportRequest.getCountry());
 
-
         Airport updatedAirport = airportRepository.save(existingAirport);
 
-        return airportResponse.buildAirportResponse(updatedAirport);
+        if (!airportRequest.getAirportType().isEmpty()) {
+            for(String str : airportRequest.getAirportType()) {
+
+                try {
+
+                    AirportTypeEnum typeEnum = AirportTypeEnum.valueOf(str.toUpperCase());
+                    airportTypeRepository.findByAirportType(typeEnum)
+                            .ifPresent(updatedAirport.getAirportTypes()::add);
+
+                } catch (RuntimeException e) {
+
+                    throw new RuntimeException(e);
+
+                }
+
+            }
+        }
+
+        Airport newlyUpdatedAirport = airportRepository.save(updatedAirport);
+
+        return airportResponse.buildAirportResponse(newlyUpdatedAirport);
     }
 
     @Override
@@ -188,6 +227,7 @@ public class AirportServiceImpl implements AirportService {
                 .incomingFlight(existingAirport.getIncomingFlight().isEmpty() ? null : existingAirport.getIncomingFlight())
                 .outgoingFlight(existingAirport.getOutgoingFlight().isEmpty() ? null : existingAirport.getOutgoingFlight())
                 .city(existingAirport.getCity())
+                .airportTypes(existingAirport.getAirportTypes().isEmpty() ? null : existingAirport.getAirportTypes())
                 .build();
 
     }

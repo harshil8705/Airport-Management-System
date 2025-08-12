@@ -14,6 +14,7 @@ public class BuildAirportResponse {
                 .airportId(airport.getAirportId())
                 .city(airport.getCity())
                 .country(airport.getCountry())
+                .airportTypes(airport.getAirportTypes())
                 .build();
 
     }

@@ -1,5 +1,6 @@
 package airport.management.system.airportModule.request;
 
+import airport.management.system.airportModule.model.AirportType;
 import airport.management.system.airportModule.model.AirportTypeEnum;
 import airport.management.system.flightModule.model.Flight;
 import jakarta.persistence.Column;
@@ -10,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -29,6 +31,6 @@ public class AirportRequest {
     @NotBlank
     private String country;
 
-    private List<AirportTypeEnum> airportType;
+    private Set<String> airportType;
 
 }

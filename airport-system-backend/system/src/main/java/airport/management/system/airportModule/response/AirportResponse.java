@@ -1,13 +1,9 @@
 package airport.management.system.airportModule.response;
 
-import airport.management.system.airportModule.model.Airport;
 import airport.management.system.airportModule.model.AirportType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -19,6 +15,9 @@ public class AirportResponse {
     private String airportName;
     private String city;
     private String country;
-    private List<AirportType> airportTypes;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<AirportType> airportTypes;
 
 }
