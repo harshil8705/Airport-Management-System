@@ -7,7 +7,6 @@ import airport.management.system.staffModule.model.Staff;
 import airport.management.system.terminalModule.model.Terminal;
 import lombok.*;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

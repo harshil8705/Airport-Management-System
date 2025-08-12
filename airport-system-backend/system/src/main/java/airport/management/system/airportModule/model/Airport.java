@@ -6,7 +6,6 @@ import airport.management.system.staffModule.model.Staff;
 import airport.management.system.terminalModule.model.Terminal;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.HashSet;
