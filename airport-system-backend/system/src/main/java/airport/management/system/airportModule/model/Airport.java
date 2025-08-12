@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -31,6 +32,11 @@ public class Airport {
 
     @NotBlank
     private String country;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
+    private Set<AirportType> airportTypes;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

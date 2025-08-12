@@ -94,4 +94,11 @@ public class AirportController {
 
     }
 
+    @GetMapping("/admin/get-airport-details/airport-id/{airportId}")
+    public ResponseEntity<?> getCompleteAirportDetails(@PathVariable Long airportId) {
+
+        return new ResponseEntity<>(airportService.getCompleteAirportDetails(airportId), HttpStatus.FOUND);
+
+    }
+
 }

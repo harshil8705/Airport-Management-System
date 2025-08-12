@@ -22,4 +22,6 @@ public interface AirportService {
 
     Object deleteAirportById(Long airportId);
 
+    Object getCompleteAirportDetails(Long airportId);
+
 }

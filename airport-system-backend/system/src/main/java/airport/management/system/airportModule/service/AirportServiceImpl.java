@@ -1,9 +1,12 @@
 package airport.management.system.airportModule.service;
 
 import airport.management.system.airportModule.model.Airport;
+import airport.management.system.airportModule.model.AirportType;
+import airport.management.system.airportModule.model.AirportTypeEnum;
 import airport.management.system.airportModule.repository.AirportRepository;
 import airport.management.system.airportModule.request.AirportRequest;
-import airport.management.system.airportModule.response.AirportResponse;
+import airport.management.system.airportModule.response.AirportResponse2;
+import airport.management.system.airportModule.utils.BuildAirportResponse;
 import airport.management.system.exceptionModule.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,12 +16,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AirportServiceImpl implements AirportService {
 
     @Autowired
     private AirportRepository airportRepository;
+
+    @Autowired
+    private BuildAirportResponse airportResponse;
 
     @Override
     public Object addNewAirport(AirportRequest airportRequest) {
@@ -36,12 +43,7 @@ public class AirportServiceImpl implements AirportService {
 
         Airport newAirport = airportRepository.save(airport);
 
-        return AirportResponse.builder()
-                .airportId(newAirport.getAirportId())
-                .airportName(newAirport.getAirportName())
-                .city(newAirport.getCity())
-                .country(newAirport.getCountry())
-                .build();
+        return airportResponse.buildAirportResponse(newAirport);
 
     }
 
@@ -51,12 +53,7 @@ public class AirportServiceImpl implements AirportService {
         Airport existingAirport = airportRepository.findById(airportId)
                 .orElseThrow(() -> new ApiException("No airport found by the airportId: " + airportId));
 
-        return AirportResponse.builder()
-                .airportId(existingAirport.getAirportId())
-                .country(existingAirport.getCountry())
-                .city(existingAirport.getCity())
-                .airportName(existingAirport.getAirportName())
-                .build();
+        return airportResponse.buildAirportResponse(existingAirport);
 
     }
 
@@ -77,13 +74,7 @@ public class AirportServiceImpl implements AirportService {
         }
 
         return airports.stream()
-                .map(airport -> AirportResponse.builder()
-                        .airportId(airport.getAirportId())
-                        .airportName(airport.getAirportName())
-                        .country(airport.getCountry())
-                        .city(airport.getCity())
-                        .build()
-                )
+                .map(airport -> airportResponse.buildAirportResponse(airport))
                 .toList();
 
     }
@@ -105,13 +96,7 @@ public class AirportServiceImpl implements AirportService {
         }
 
         return airports.stream()
-                .map(airport -> AirportResponse.builder()
-                        .airportId(airport.getAirportId())
-                        .city(airport.getCity())
-                        .country(airport.getCountry())
-                        .airportName(airport.getAirportName())
-                        .build()
-                )
+                .map(airport -> airportResponse.buildAirportResponse(airport))
                 .toList();
 
     }
@@ -133,13 +118,7 @@ public class AirportServiceImpl implements AirportService {
         }
 
         return airports.stream()
-                .map(airport -> AirportResponse.builder()
-                        .airportId(airport.getAirportId())
-                        .city(airport.getCity())
-                        .country(airport.getCountry())
-                        .airportName(airport.getAirportName())
-                        .build()
-                )
+                .map(airport -> airportResponse.buildAirportResponse(airport))
                 .toList();
 
     }
@@ -161,13 +140,7 @@ public class AirportServiceImpl implements AirportService {
         }
 
         return airports.stream()
-                .map(airport -> AirportResponse.builder()
-                        .airportId(airport.getAirportId())
-                        .city(airport.getCity())
-                        .country(airport.getCountry())
-                        .airportName(airport.getAirportName())
-                        .build()
-                )
+                .map(airport -> airportResponse.buildAirportResponse(airport))
                 .toList();
 
     }
@@ -182,14 +155,10 @@ public class AirportServiceImpl implements AirportService {
         existingAirport.setCity(airportRequest.getCity());
         existingAirport.setCountry(airportRequest.getCountry());
 
+
         Airport updatedAirport = airportRepository.save(existingAirport);
 
-        return AirportResponse.builder()
-                .airportId(updatedAirport.getAirportId())
-                .airportName(updatedAirport.getAirportName())
-                .city(updatedAirport.getCity())
-                .country(updatedAirport.getCountry())
-                .build();
+        return airportResponse.buildAirportResponse(updatedAirport);
     }
 
     @Override
@@ -201,6 +170,25 @@ public class AirportServiceImpl implements AirportService {
         airportRepository.delete(airportToDelete);
 
         return "Airport with airportId: " + airportId + " deleted Successfully.";
+
+    }
+
+    @Override
+    public Object getCompleteAirportDetails(Long airportId) {
+
+        Airport existingAirport = airportRepository.findById(airportId)
+                .orElseThrow(() -> new ApiException("No airport found by the airportId: " + airportId));
+
+        return AirportResponse2.builder()
+                .airportId(existingAirport.getAirportId())
+                .airportName(existingAirport.getAirportName())
+                .gates(existingAirport.getGates().isEmpty() ? null : existingAirport.getGates())
+                .country(existingAirport.getCountry())
+                .terminals(existingAirport.getTerminals().isEmpty() ? null : existingAirport.getTerminals())
+                .incomingFlight(existingAirport.getIncomingFlight().isEmpty() ? null : existingAirport.getIncomingFlight())
+                .outgoingFlight(existingAirport.getOutgoingFlight().isEmpty() ? null : existingAirport.getOutgoingFlight())
+                .city(existingAirport.getCity())
+                .build();
 
     }
 

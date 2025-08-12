@@ -1,5 +1,6 @@
 package airport.management.system.airportModule.request;
 
+import airport.management.system.airportModule.model.AirportTypeEnum;
 import airport.management.system.flightModule.model.Flight;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
@@ -27,5 +28,7 @@ public class AirportRequest {
 
     @NotBlank
     private String country;
+
+    private List<AirportTypeEnum> airportType;
 
 }
