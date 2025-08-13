@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AirportServiceImpl implements AirportService {
@@ -229,6 +230,32 @@ public class AirportServiceImpl implements AirportService {
                 .city(existingAirport.getCity())
                 .airportTypes(existingAirport.getAirportTypes().isEmpty() ? null : existingAirport.getAirportTypes())
                 .build();
+
+    }
+
+    @Override
+    public Object removeTypeOfAirportById(Long airportId, Set<String> airportTypes) {
+
+        Airport existingAirport = airportRepository.findById(airportId)
+                .orElseThrow(() -> new ApiException("No airport found by the airportId: " + airportId));
+
+        for(String str : airportTypes) {
+
+            try {
+
+                AirportTypeEnum typeEnum = AirportTypeEnum.valueOf(str.toUpperCase());
+                airportTypeRepository.findByAirportType(typeEnum)
+                        .ifPresent(existingAirport.getAirportTypes()::remove);
+
+            } catch (RuntimeException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
+        Airport updatedAirport = airportRepository.save(existingAirport);
+
+        return airportResponse.buildAirportResponse(updatedAirport);
 
     }
 

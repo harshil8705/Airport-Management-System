@@ -3,6 +3,7 @@ package airport.management.system.airportModule.service;
 import airport.management.system.airportModule.request.AirportRequest;
 
 import java.util.List;
+import java.util.Set;
 
 public interface AirportService {
 
@@ -23,5 +24,7 @@ public interface AirportService {
     Object deleteAirportById(Long airportId);
 
     Object getCompleteAirportDetails(Long airportId);
+
+    Object removeTypeOfAirportById(Long airportId, Set<String> airportTypes);
 
 }
