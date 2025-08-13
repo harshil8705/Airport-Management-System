@@ -9,7 +9,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -31,12 +33,16 @@ public class Terminal {
     @NotNull
     private Integer totalGates;
 
-    @NotNull
-    @OneToOne
+    @ManyToMany
+    @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "terminal_type_fk_id")
-    private TerminalType terminalType;
+    @JoinTable(
+            name = "terminal_terminal_type",
+            joinColumns = @JoinColumn(name = "terminal_id"),
+            inverseJoinColumns = @JoinColumn(name = "terminal_types_fk_id")
+    )
+    private Set<TerminalType> terminalTypes = new HashSet<>();
 
     @NotNull
     private LocalDateTime createdAt;
@@ -57,7 +63,6 @@ public class Terminal {
     @OneToMany(mappedBy = "terminal", cascade = CascadeType.ALL)
     private List<Flight> flights;
 
-    @NotNull
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

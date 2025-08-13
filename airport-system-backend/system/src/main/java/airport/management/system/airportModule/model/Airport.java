@@ -40,7 +40,7 @@ public class Airport {
     @JoinTable(
             name = "airport_airport_type",
             joinColumns = @JoinColumn(name = "airport_id"),
-            inverseJoinColumns = @JoinColumn(name = "airport_type_id")
+            inverseJoinColumns = @JoinColumn(name = "airport_types_fk_id")
     )
     private Set<AirportType> airportTypes = new HashSet<>();
 
