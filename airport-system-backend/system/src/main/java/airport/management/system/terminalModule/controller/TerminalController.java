@@ -87,4 +87,11 @@ public class TerminalController {
 
     }
 
+    @PutMapping("/admin/assign-airport-terminal/airport-id/{airportId}/terminal-id/{terminalId}")
+    public ResponseEntity<?> assignAirportToTerminalById(@PathVariable Long airportId, @PathVariable Long terminalId) {
+
+        return new ResponseEntity<>(terminalService.assignAirportToTerminalById(airportId, terminalId), HttpStatus.OK);
+
+    }
+
 }

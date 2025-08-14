@@ -3,6 +3,7 @@ package airport.management.system.terminalModule.model;
 import airport.management.system.airportModule.model.Airport;
 import airport.management.system.flightModule.model.Flight;
 import airport.management.system.gateModule.model.Gate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -64,6 +65,7 @@ public class Terminal {
     private List<Flight> flights;
 
     @ManyToOne
+    @JsonIgnore
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "airport_fk_id")

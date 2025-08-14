@@ -23,4 +23,6 @@ public interface TerminalService {
 
     Object removeTypeOfTerminalById(Long terminalId, Set<String> terminalTypes);
 
+    Object assignAirportToTerminalById(Long airportId, Long terminalId);
+
 }

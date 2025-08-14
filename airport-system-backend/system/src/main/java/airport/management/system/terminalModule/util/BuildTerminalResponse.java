@@ -1,11 +1,17 @@
 package airport.management.system.terminalModule.util;
 
+import airport.management.system.airportModule.utils.BuildAirportResponse;
 import airport.management.system.terminalModule.model.Terminal;
 import airport.management.system.terminalModule.response.TerminalResponse;
+import airport.management.system.terminalModule.response.TerminalResponse2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BuildTerminalResponse {
+
+    @Autowired
+    private BuildAirportResponse buildResponse;
 
     public TerminalResponse buildTerminalResponse(Terminal terminal) {
 
@@ -14,6 +20,24 @@ public class BuildTerminalResponse {
                 .terminalTypes(terminal.getTerminalTypes().isEmpty() ? null : terminal.getTerminalTypes())
                 .terminalCode(terminal.getTerminalCode())
                 .createdAt(terminal.getCreatedAt())
+                .isActive(terminal.getIsActive())
+                .location(terminal.getLocation())
+                .totalGates(terminal.getTotalGates())
+                .updatedAt(terminal.getUpdatedAt())
+                .build();
+
+    }
+
+    public TerminalResponse2 buildTerminalResponse2(Terminal terminal) {
+
+        return TerminalResponse2.builder()
+                .terminalId(terminal.getTerminalId())
+                .terminalCode(terminal.getTerminalCode())
+                .terminalTypes(terminal.getTerminalTypes().isEmpty() ? null : terminal.getTerminalTypes())
+                .airport(terminal.getAirport() == null ? null : buildResponse.buildAirportResponse(terminal.getAirport()))
+                .createdAt(terminal.getCreatedAt())
+                .flights(terminal.getFlights().isEmpty() ? null : terminal.getFlights())
+                .gates(terminal.getGates().isEmpty() ? null : terminal.getGates())
                 .isActive(terminal.getIsActive())
                 .location(terminal.getLocation())
                 .totalGates(terminal.getTotalGates())

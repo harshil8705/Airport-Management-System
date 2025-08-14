@@ -1,5 +1,7 @@
 package airport.management.system.terminalModule.service;
 
+import airport.management.system.airportModule.model.Airport;
+import airport.management.system.airportModule.repository.AirportRepository;
 import airport.management.system.airportModule.response.AirportResponse;
 import airport.management.system.airportModule.utils.BuildAirportResponse;
 import airport.management.system.exceptionModule.ApiException;
@@ -35,6 +37,9 @@ public class TerminalServiceImpl implements TerminalService {
 
     @Autowired
     private BuildAirportResponse buildResponse;
+
+    @Autowired
+    private AirportRepository airportRepository;
 
     @Override
     public Object addNewTerminal(TerminalRequest terminalRequest) {
@@ -177,19 +182,7 @@ public class TerminalServiceImpl implements TerminalService {
         Terminal existingTerminal = terminalRepository.findById(terminalId)
                 .orElseThrow(() -> new ApiException("No terminal found by terminalId: " + terminalId));
 
-        return TerminalResponse2.builder()
-                .terminalId(existingTerminal.getTerminalId())
-                .terminalCode(existingTerminal.getTerminalCode())
-                .terminalTypes(existingTerminal.getTerminalTypes().isEmpty() ? null : existingTerminal.getTerminalTypes())
-                .airport(existingTerminal.getAirport() == null ? null : buildResponse.buildAirportResponse(existingTerminal.getAirport()))
-                .createdAt(existingTerminal.getCreatedAt())
-                .flights(existingTerminal.getFlights().isEmpty() ? null : existingTerminal.getFlights())
-                .gates(existingTerminal.getGates().isEmpty() ? null : existingTerminal.getGates())
-                .isActive(existingTerminal.getIsActive())
-                .location(existingTerminal.getLocation())
-                .totalGates(existingTerminal.getTotalGates())
-                .updatedAt(existingTerminal.getUpdatedAt())
-                .build();
+        return terminalResponse.buildTerminalResponse2(existingTerminal);
     }
 
     @Override
@@ -215,6 +208,32 @@ public class TerminalServiceImpl implements TerminalService {
         Terminal updatedTerminal = terminalRepository.save(existingTerminal);
 
         return terminalResponse.buildTerminalResponse(updatedTerminal);
+    }
+
+    @Override
+    public Object assignAirportToTerminalById(Long airportId, Long terminalId) {
+
+        Airport existingAirport = airportRepository.findById(airportId)
+                .orElseThrow(() -> new ApiException("No airport found by airportId: " + airportId));
+
+        Terminal existingTerminal = terminalRepository.findById(terminalId)
+                .orElseThrow(() -> new ApiException("No terminal found by terminalId: " + terminalId));
+
+        if (existingTerminal.getAirport() != null) {
+
+            throw new ApiException("Terminal with terminalId: " + terminalId + " is already assigned to airport with airportId: " + existingTerminal.getAirport().getAirportId());
+
+        }
+
+        existingTerminal.setAirport(existingAirport);
+        existingTerminal.setUpdatedAt(LocalDateTime.now());
+        existingAirport.getTerminals().add(existingTerminal);
+
+        airportRepository.save(existingAirport);
+        Terminal updatedTerminal = terminalRepository.save(existingTerminal);
+
+        return terminalResponse.buildTerminalResponse2(updatedTerminal);
+
     }
 
 }

@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -62,9 +63,10 @@ public class Airport {
     @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
     private List<Gate> gates;
 
+    @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
-    private List<Terminal> terminals;
+    private List<Terminal> terminals = new ArrayList<>();
 
 }
