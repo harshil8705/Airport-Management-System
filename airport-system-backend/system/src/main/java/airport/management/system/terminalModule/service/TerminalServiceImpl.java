@@ -1,11 +1,14 @@
 package airport.management.system.terminalModule.service;
 
+import airport.management.system.airportModule.response.AirportResponse;
+import airport.management.system.airportModule.utils.BuildAirportResponse;
 import airport.management.system.exceptionModule.ApiException;
 import airport.management.system.terminalModule.model.Terminal;
 import airport.management.system.terminalModule.model.TerminalTypeEnum;
 import airport.management.system.terminalModule.repository.TerminalRepository;
 import airport.management.system.terminalModule.repository.TerminalTypeRepository;
 import airport.management.system.terminalModule.request.TerminalRequest;
+import airport.management.system.terminalModule.response.TerminalResponse2;
 import airport.management.system.terminalModule.util.BuildTerminalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,6 +32,9 @@ public class TerminalServiceImpl implements TerminalService {
 
     @Autowired
     private BuildTerminalResponse terminalResponse;
+
+    @Autowired
+    private BuildAirportResponse buildResponse;
 
     @Override
     public Object addNewTerminal(TerminalRequest terminalRequest) {
@@ -156,17 +162,59 @@ public class TerminalServiceImpl implements TerminalService {
 
     @Override
     public Object deleteTerminalById(Long terminalId) {
-        return null;
+
+        Terminal terminalToDelete = terminalRepository.findById(terminalId)
+                .orElseThrow(() -> new ApiException("No terminal found by terminalId: " + terminalId));
+
+        terminalRepository.delete(terminalToDelete);
+
+        return "Terminal with terminalId: " + terminalId + " deleted Successfully.";
     }
 
     @Override
     public Object getCompleteTerminalDetails(Long terminalId) {
-        return null;
+
+        Terminal existingTerminal = terminalRepository.findById(terminalId)
+                .orElseThrow(() -> new ApiException("No terminal found by terminalId: " + terminalId));
+
+        return TerminalResponse2.builder()
+                .terminalId(existingTerminal.getTerminalId())
+                .terminalCode(existingTerminal.getTerminalCode())
+                .terminalTypes(existingTerminal.getTerminalTypes().isEmpty() ? null : existingTerminal.getTerminalTypes())
+                .airport(existingTerminal.getAirport() == null ? null : buildResponse.buildAirportResponse(existingTerminal.getAirport()))
+                .createdAt(existingTerminal.getCreatedAt())
+                .flights(existingTerminal.getFlights().isEmpty() ? null : existingTerminal.getFlights())
+                .gates(existingTerminal.getGates().isEmpty() ? null : existingTerminal.getGates())
+                .isActive(existingTerminal.getIsActive())
+                .location(existingTerminal.getLocation())
+                .totalGates(existingTerminal.getTotalGates())
+                .updatedAt(existingTerminal.getUpdatedAt())
+                .build();
     }
 
     @Override
     public Object removeTypeOfTerminalById(Long terminalId, Set<String> terminalTypes) {
-        return null;
+
+        Terminal existingTerminal = terminalRepository.findById(terminalId)
+                .orElseThrow(() -> new ApiException("No terminal found by terminalId: " + terminalId));
+
+        for (String str : terminalTypes) {
+
+            try {
+
+                TerminalTypeEnum typeEnum = TerminalTypeEnum.valueOf(str.toUpperCase());
+                terminalTypeRepository.findByTerminalType(typeEnum)
+                        .ifPresent(existingTerminal.getTerminalTypes()::remove);
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
+        Terminal updatedTerminal = terminalRepository.save(existingTerminal);
+
+        return terminalResponse.buildTerminalResponse(updatedTerminal);
     }
 
 }
