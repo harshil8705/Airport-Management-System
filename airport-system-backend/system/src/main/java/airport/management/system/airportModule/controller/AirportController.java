@@ -1,6 +1,6 @@
 package airport.management.system.airportModule.controller;
 
-import airport.management.system.airportModule.configuration.AppConstants;
+import airport.management.system.configuration.AppConstants;
 import airport.management.system.airportModule.request.AirportRequest;
 import airport.management.system.airportModule.service.AirportServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
