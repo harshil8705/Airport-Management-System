@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,15 +55,17 @@ public class Terminal {
     @NotNull
     private Boolean isActive;
 
+    @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "terminal", cascade = CascadeType.ALL)
-    private List<Gate> gates;
+    private List<Gate> gates = new ArrayList<>();
 
+    @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "terminal", cascade = CascadeType.ALL)
-    private List<Flight> flights;
+    private List<Flight> flights = new ArrayList<>();
 
     @ManyToOne
     @JsonIgnore

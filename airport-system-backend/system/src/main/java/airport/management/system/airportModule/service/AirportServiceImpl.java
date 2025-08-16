@@ -8,6 +8,7 @@ import airport.management.system.airportModule.request.AirportRequest;
 import airport.management.system.airportModule.response.AirportResponse2;
 import airport.management.system.airportModule.utils.BuildAirportResponse;
 import airport.management.system.exceptionModule.ApiException;
+import airport.management.system.terminalModule.util.BuildTerminalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +30,9 @@ public class AirportServiceImpl implements AirportService {
 
     @Autowired
     private AirportTypeRepository airportTypeRepository;
+
+    @Autowired
+    private BuildTerminalResponse terminalResponse;
 
     @Override
     public Object addNewAirport(AirportRequest airportRequest) {
@@ -222,13 +226,13 @@ public class AirportServiceImpl implements AirportService {
         return AirportResponse2.builder()
                 .airportId(existingAirport.getAirportId())
                 .airportName(existingAirport.getAirportName())
-                .gates(existingAirport.getGates().isEmpty() ? null : existingAirport.getGates())
+                .gates(existingAirport.getGates())
                 .country(existingAirport.getCountry())
-                .terminals(existingAirport.getTerminals().isEmpty() ? null : existingAirport.getTerminals())
-                .incomingFlight(existingAirport.getIncomingFlight().isEmpty() ? null : existingAirport.getIncomingFlight())
-                .outgoingFlight(existingAirport.getOutgoingFlight().isEmpty() ? null : existingAirport.getOutgoingFlight())
+                .terminals(existingAirport.getTerminals().stream().map(terminal -> terminalResponse.buildTerminalResponse(terminal)).toList())
+                .incomingFlight(existingAirport.getIncomingFlight())
+                .outgoingFlight(existingAirport.getOutgoingFlight())
                 .city(existingAirport.getCity())
-                .airportTypes(existingAirport.getAirportTypes().isEmpty() ? null : existingAirport.getAirportTypes())
+                .airportTypes(existingAirport.getAirportTypes())
                 .build();
 
     }

@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -22,7 +23,9 @@ public class TerminalResponse {
     private String location;
     private Integer totalGates;
     private Boolean isActive;
-    private Set<TerminalType> terminalTypes;
+
+    @Builder.Default
+    private Set<TerminalType> terminalTypes = new HashSet<>();
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

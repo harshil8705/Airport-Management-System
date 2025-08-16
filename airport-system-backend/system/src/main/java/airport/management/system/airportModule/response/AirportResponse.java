@@ -3,6 +3,7 @@ package airport.management.system.airportModule.response;
 import airport.management.system.airportModule.model.AirportType;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -16,8 +17,7 @@ public class AirportResponse {
     private String city;
     private String country;
 
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Set<AirportType> airportTypes;
+    @Builder.Default
+    private Set<AirportType> airportTypes = new HashSet<>();
 
 }

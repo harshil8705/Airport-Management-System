@@ -14,7 +14,7 @@ public class BuildAirportResponse {
                 .airportId(airport.getAirportId())
                 .city(airport.getCity())
                 .country(airport.getCountry())
-                .airportTypes(airport.getAirportTypes().isEmpty() ? null : airport.getAirportTypes())
+                .airportTypes(airport.getAirportTypes())
                 .build();
 
     }

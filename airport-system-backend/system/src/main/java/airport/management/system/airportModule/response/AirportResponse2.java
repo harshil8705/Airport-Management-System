@@ -5,8 +5,11 @@ import airport.management.system.flightModule.model.Flight;
 import airport.management.system.gateModule.model.Gate;
 import airport.management.system.staffModule.model.Staff;
 import airport.management.system.terminalModule.model.Terminal;
+import airport.management.system.terminalModule.response.TerminalResponse;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,13 +24,22 @@ public class AirportResponse2 {
     private String city;
     private String country;
 
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Set<AirportType> airportTypes;
-    private List<Flight> outgoingFlight;
-    private List<Flight> incomingFlight;
-    private List<Staff> staff;
-    private List<Gate> gates;
-    private List<Terminal> terminals;
+    @Builder.Default
+    private Set<AirportType> airportTypes = new HashSet<>();
+
+    @Builder.Default
+    private List<Flight> outgoingFlight = new ArrayList<>();
+
+    @Builder.Default
+    private List<Flight> incomingFlight = new ArrayList<>();
+
+    @Builder.Default
+    private List<Staff> staff = new ArrayList<>();
+
+    @Builder.Default
+    private List<Gate> gates = new ArrayList<>();
+
+    @Builder.Default
+    private List<TerminalResponse> terminals = new ArrayList<>();
 
 }

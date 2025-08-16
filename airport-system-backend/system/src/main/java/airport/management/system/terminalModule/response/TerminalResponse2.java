@@ -9,6 +9,8 @@ import airport.management.system.terminalModule.model.TerminalType;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -23,14 +25,19 @@ public class TerminalResponse2 {
     private String location;
     private Integer totalGates;
 
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Set<TerminalType> terminalTypes;
+    @Builder.Default
+    private Set<TerminalType> terminalTypes = new HashSet<>();
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Boolean isActive;
-    private List<Gate> gates;
-    private List<Flight> flights;
+
+    @Builder.Default
+    private List<Gate> gates = new ArrayList<>();
+
+    @Builder.Default
+    private List<Flight> flights = new ArrayList<>();
+
     private AirportResponse airport;
 
 }

@@ -45,23 +45,27 @@ public class Airport {
     )
     private Set<AirportType> airportTypes = new HashSet<>();
 
+    @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "sourceAirport", cascade = CascadeType.ALL)
-    private List<Flight> outgoingFlight;
+    private List<Flight> outgoingFlight = new ArrayList<>();
 
+    @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "destinationAirport", cascade = CascadeType.ALL)
-    private List<Flight> incomingFlight;
+    private List<Flight> incomingFlight = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "assignedAirport", cascade = CascadeType.ALL)
-    private List<Staff> staff;
+    private List<Staff> staff = new ArrayList<>();
 
+    @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
-    private List<Gate> gates;
+    private List<Gate> gates = new ArrayList<>();
 
     @Builder.Default
     @ToString.Exclude
