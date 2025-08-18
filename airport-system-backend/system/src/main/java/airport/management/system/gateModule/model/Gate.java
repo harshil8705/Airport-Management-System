@@ -25,8 +25,7 @@ public class Gate {
     @NotBlank
     private String gateCode;
 
-    @NotNull
-    @OneToOne
+    @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "gate_status_fk_id")
@@ -38,13 +37,9 @@ public class Gate {
     @NotNull
     private LocalTime closeTime;
 
-    @NotNull
     private LocalDateTime createdAt;
-
-    @NotNull
     private LocalDateTime updatedAt;
 
-    @NotNull
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
@@ -56,7 +51,6 @@ public class Gate {
     @OneToOne(mappedBy = "gate", cascade = CascadeType.ALL)
     private Flight flight;
 
-    @NotNull
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

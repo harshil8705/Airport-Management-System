@@ -13,16 +13,10 @@ import lombok.*;
 public class GateStatus {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gateStatusId;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private GateStatusEnum gateStatus;
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToOne(mappedBy = "gateStatus", cascade = CascadeType.ALL)
-    private Gate gate;
 
 }

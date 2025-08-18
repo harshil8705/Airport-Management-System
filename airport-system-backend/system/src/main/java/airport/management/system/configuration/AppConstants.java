@@ -8,5 +8,6 @@ public class AppConstants {
     public static final String SORT_DIRECTION = "asc";
     public static final String SORT_AIRPORT_BY = "airportId";
     public static final String SORT_TERMINAL_BY = "terminalId";
+    public static final String SORT_GATE_BY = "gateId";
 
 }
