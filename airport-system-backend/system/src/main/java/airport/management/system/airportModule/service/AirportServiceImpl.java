@@ -8,6 +8,7 @@ import airport.management.system.airportModule.request.AirportRequest;
 import airport.management.system.airportModule.response.AirportResponse2;
 import airport.management.system.airportModule.utils.BuildAirportResponse;
 import airport.management.system.exceptionModule.ApiException;
+import airport.management.system.gateModule.util.GateResponseBuilder;
 import airport.management.system.terminalModule.util.BuildTerminalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,6 +34,9 @@ public class AirportServiceImpl implements AirportService {
 
     @Autowired
     private BuildTerminalResponse terminalResponse;
+
+    @Autowired
+    private GateResponseBuilder gateResponseBuilder;
 
     @Override
     public Object addNewAirport(AirportRequest airportRequest) {
@@ -226,7 +230,7 @@ public class AirportServiceImpl implements AirportService {
         return AirportResponse2.builder()
                 .airportId(existingAirport.getAirportId())
                 .airportName(existingAirport.getAirportName())
-                .gates(existingAirport.getGates())
+                .gates(existingAirport.getGates().stream().map(gate -> gateResponseBuilder.buildGateResponse(gate)).toList())
                 .country(existingAirport.getCountry())
                 .terminals(existingAirport.getTerminals().stream().map(terminal -> terminalResponse.buildTerminalResponse(terminal)).toList())
                 .incomingFlight(existingAirport.getIncomingFlight())

@@ -78,4 +78,11 @@ public class GateController {
 
     }
 
+    @GetMapping("/admin/get-gate-details/gate-id/{gateId}")
+    public ResponseEntity<?> getCompleteGateDetails(@PathVariable Long gateId) {
+
+        return new ResponseEntity<>(gateService.getCompleteGateDetails(gateId), HttpStatus.FOUND);
+
+    }
+
 }

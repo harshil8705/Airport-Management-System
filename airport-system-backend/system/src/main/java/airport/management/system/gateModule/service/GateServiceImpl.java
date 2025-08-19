@@ -1,5 +1,6 @@
 package airport.management.system.gateModule.service;
 
+import airport.management.system.airportModule.utils.BuildAirportResponse;
 import airport.management.system.exceptionModule.ApiException;
 import airport.management.system.gateModule.model.Gate;
 import airport.management.system.gateModule.model.GateStatus;
@@ -7,12 +8,15 @@ import airport.management.system.gateModule.model.GateStatusEnum;
 import airport.management.system.gateModule.repository.GateRepository;
 import airport.management.system.gateModule.repository.GateStatusRepository;
 import airport.management.system.gateModule.request.GateRequest;
+import airport.management.system.gateModule.response.GateResponse2;
 import airport.management.system.gateModule.util.GateResponseBuilder;
+import airport.management.system.terminalModule.util.BuildTerminalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,6 +33,12 @@ public class GateServiceImpl implements GateService{
 
     @Autowired
     private GateResponseBuilder responseBuilder;
+
+    @Autowired
+    private BuildAirportResponse buildAirportResponse;
+
+    @Autowired
+    private BuildTerminalResponse buildTerminalResponse;
 
     @Override
     public Object addNewGate(GateRequest gateRequest) {
@@ -173,6 +183,16 @@ public class GateServiceImpl implements GateService{
         gateRepository.delete(gateToDelete);
 
         return "Gate with gateId: " + gateId + " deleted Successfully";
+
+    }
+
+    @Override
+    public Object getCompleteGateDetails(Long gateId) {
+
+        Gate existingGate = gateRepository.findById(gateId)
+                .orElseThrow(() -> new ApiException("No gate found by gateId: " + gateId));
+
+        return responseBuilder.buildGateResponse2(existingGate);
 
     }
 

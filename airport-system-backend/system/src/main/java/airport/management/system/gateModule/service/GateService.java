@@ -20,4 +20,6 @@ public interface GateService {
 
     Object deleteGateById(Long gateId);
 
+    Object getCompleteGateDetails(Long gateId);
+
 }

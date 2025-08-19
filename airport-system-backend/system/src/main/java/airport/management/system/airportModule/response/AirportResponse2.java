@@ -3,6 +3,7 @@ package airport.management.system.airportModule.response;
 import airport.management.system.airportModule.model.AirportType;
 import airport.management.system.flightModule.model.Flight;
 import airport.management.system.gateModule.model.Gate;
+import airport.management.system.gateModule.response.GateResponse;
 import airport.management.system.staffModule.model.Staff;
 import airport.management.system.terminalModule.model.Terminal;
 import airport.management.system.terminalModule.response.TerminalResponse;
@@ -37,7 +38,7 @@ public class AirportResponse2 {
     private List<Staff> staff = new ArrayList<>();
 
     @Builder.Default
-    private List<Gate> gates = new ArrayList<>();
+    private List<GateResponse> gates = new ArrayList<>();
 
     @Builder.Default
     private List<TerminalResponse> terminals = new ArrayList<>();

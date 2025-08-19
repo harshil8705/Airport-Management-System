@@ -1,6 +1,7 @@
 package airport.management.system.terminalModule.util;
 
 import airport.management.system.airportModule.utils.BuildAirportResponse;
+import airport.management.system.gateModule.util.GateResponseBuilder;
 import airport.management.system.terminalModule.model.Terminal;
 import airport.management.system.terminalModule.response.TerminalResponse;
 import airport.management.system.terminalModule.response.TerminalResponse2;
@@ -12,6 +13,9 @@ public class BuildTerminalResponse {
 
     @Autowired
     private BuildAirportResponse buildResponse;
+
+    @Autowired
+    private GateResponseBuilder gateResponseBuilder;
 
     public TerminalResponse buildTerminalResponse(Terminal terminal) {
 
@@ -37,7 +41,7 @@ public class BuildTerminalResponse {
                 .airport(terminal.getAirport() == null ? null : buildResponse.buildAirportResponse(terminal.getAirport()))
                 .createdAt(terminal.getCreatedAt())
                 .flights(terminal.getFlights())
-                .gates(terminal.getGates())
+                .gates(terminal.getGates().stream().map(gate -> gateResponseBuilder.buildGateResponse(gate)).toList())
                 .isActive(terminal.getIsActive())
                 .location(terminal.getLocation())
                 .totalGates(terminal.getTotalGates())

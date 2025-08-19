@@ -1,10 +1,9 @@
 package airport.management.system.terminalModule.response;
 
-import airport.management.system.airportModule.model.Airport;
-import airport.management.system.airportModule.request.AirportRequest;
 import airport.management.system.airportModule.response.AirportResponse;
 import airport.management.system.flightModule.model.Flight;
 import airport.management.system.gateModule.model.Gate;
+import airport.management.system.gateModule.response.GateResponse;
 import airport.management.system.terminalModule.model.TerminalType;
 import lombok.*;
 
@@ -33,7 +32,7 @@ public class TerminalResponse2 {
     private Boolean isActive;
 
     @Builder.Default
-    private List<Gate> gates = new ArrayList<>();
+    private List<GateResponse> gates = new ArrayList<>();
 
     @Builder.Default
     private List<Flight> flights = new ArrayList<>();
