@@ -44,4 +44,38 @@ public class GateController {
 
     }
 
+    @GetMapping("/public/get-gate/gate-status/{gateStatus}")
+    public ResponseEntity<List<?>> getGateByStatus(
+            @PathVariable String gateStatus,
+            @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+            @RequestParam(name = "sortBy", defaultValue = AppConstants.SORT_GATE_BY, required = false) String sortBy,
+            @RequestParam(name = "sortOrder", defaultValue = AppConstants.SORT_DIRECTION, required = false) String sortOrder
+    ) {
+
+        return new ResponseEntity<>(gateService.getGateByStatus(gateStatus, pageNumber, pageSize, sortBy, sortOrder), HttpStatus.FOUND);
+
+    }
+
+    @GetMapping("/public/get-all-gates")
+    public ResponseEntity<List<?>> getAllGates() {
+
+        return new ResponseEntity<>(gateService.getAllGates(), HttpStatus.FOUND);
+
+    }
+
+    @PutMapping("/admin/update-gate/gate-id/{gateId}")
+    public ResponseEntity<?> updateGateById(@PathVariable Long gateId, @RequestBody GateRequest gateRequest) {
+
+        return new ResponseEntity<>(gateService.updateGateById(gateId, gateRequest), HttpStatus.OK);
+
+    }
+
+    @DeleteMapping("/admin/delete-gate/gate-id/{gateId}")
+    public ResponseEntity<?> deleteGateById(@PathVariable Long gateId) {
+
+        return new ResponseEntity<>(gateService.deleteGateById(gateId), HttpStatus.OK);
+
+    }
+
 }

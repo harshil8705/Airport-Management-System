@@ -12,4 +12,12 @@ public interface GateService {
 
     List<?> getGateByCode(String gateCode, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 
+    List<?> getGateByStatus(String gateStatus, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
+
+    List<?> getAllGates();
+
+    Object updateGateById(Long gateId, GateRequest gateRequest);
+
+    Object deleteGateById(Long gateId);
+
 }

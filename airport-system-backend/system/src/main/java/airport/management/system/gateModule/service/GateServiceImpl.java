@@ -91,4 +91,89 @@ public class GateServiceImpl implements GateService{
 
     }
 
+    @Override
+    public List<?> getGateByStatus(String gateStatus, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+
+        GateStatusEnum typeEnum = GateStatusEnum.valueOf(gateStatus.toUpperCase());
+        GateStatus gateStatus1 = gateStatusRepository.findByGateStatus(typeEnum);
+
+        if (gateStatus1 == null) {
+
+            throw new ApiException("No gate found with gateStatus: " + gateStatus);
+
+        }
+
+
+        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
+        Page<Gate> gatePage = gateRepository.findByGateStatus(gateStatus1, pageDetails);
+
+        List<Gate> gates = gatePage.getContent();
+
+        return gates.stream()
+                .map(gate -> responseBuilder.buildGateResponse(gate))
+                .toList();
+
+    }
+
+    @Override
+    public List<?> getAllGates() {
+
+        List<Gate> gates = gateRepository.findAll();
+
+        if (gates.isEmpty()) {
+
+            throw new ApiException("No gates found");
+
+        }
+
+        return gates.stream()
+                .map(gate -> responseBuilder.buildGateResponse(gate))
+                .toList();
+
+    }
+
+    @Override
+    public Object updateGateById(Long gateId, GateRequest gateRequest) {
+
+        Gate existingGate = gateRepository.findById(gateId)
+                .orElseThrow(() -> new ApiException("No gate found by gateId: " + gateId));
+
+        existingGate.setGateCode(gateRequest.getGateCode());
+        existingGate.setUpdatedAt(LocalDateTime.now());
+        existingGate.setCloseTime(gateRequest.getCloseTime());
+        existingGate.setOpenTime(gateRequest.getOpenTime());
+
+        GateStatusEnum typeEnum = GateStatusEnum.valueOf(gateRequest.getGateStatus().toUpperCase());
+        GateStatus gateStatus = gateStatusRepository.findByGateStatus(typeEnum);
+
+        if (gateStatus == null) {
+
+            throw new ApiException("No gate found by gateStatus: " + gateRequest.getGateStatus());
+
+        }
+
+        existingGate.setGateStatus(gateStatus);
+
+        Gate newGate = gateRepository.save(existingGate);
+
+        return responseBuilder.buildGateResponse(newGate);
+
+    }
+
+    @Override
+    public Object deleteGateById(Long gateId) {
+
+        Gate gateToDelete = gateRepository.findById(gateId)
+                .orElseThrow(() -> new ApiException("No gate found by gateId: " + gateId));
+
+        gateRepository.delete(gateToDelete);
+
+        return "Gate with gateId: " + gateId + " deleted Successfully";
+
+    }
+
 }
