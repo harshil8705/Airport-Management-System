@@ -26,7 +26,7 @@ public class BuildTerminalResponse {
                 .createdAt(terminal.getCreatedAt())
                 .isActive(terminal.getIsActive())
                 .location(terminal.getLocation())
-                .totalGates(terminal.getTotalGates())
+                .totalGates(terminal.getGates().isEmpty() ? 0 : terminal.getGates().size())
                 .updatedAt(terminal.getUpdatedAt())
                 .build();
 
@@ -44,7 +44,7 @@ public class BuildTerminalResponse {
                 .gates(terminal.getGates().stream().map(gate -> gateResponseBuilder.buildGateResponse(gate)).toList())
                 .isActive(terminal.getIsActive())
                 .location(terminal.getLocation())
-                .totalGates(terminal.getTotalGates())
+                .totalGates(terminal.getGates().isEmpty() ? 0 : terminal.getGates().size())
                 .updatedAt(terminal.getUpdatedAt())
                 .build();
 

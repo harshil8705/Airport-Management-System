@@ -22,4 +22,8 @@ public interface GateService {
 
     Object getCompleteGateDetails(Long gateId);
 
+    Object updateGateStatusById(Long gateId, String gateStatus);
+
+    Object assignTerminalToGate(Long terminalId, Long gateId);
+
 }

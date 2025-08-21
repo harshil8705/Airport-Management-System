@@ -1,5 +1,7 @@
 package airport.management.system.gateModule.service;
 
+import airport.management.system.airportModule.model.Airport;
+import airport.management.system.airportModule.repository.AirportRepository;
 import airport.management.system.airportModule.utils.BuildAirportResponse;
 import airport.management.system.exceptionModule.ApiException;
 import airport.management.system.gateModule.model.Gate;
@@ -9,6 +11,8 @@ import airport.management.system.gateModule.repository.GateRepository;
 import airport.management.system.gateModule.repository.GateStatusRepository;
 import airport.management.system.gateModule.request.GateRequest;
 import airport.management.system.gateModule.util.GateResponseBuilder;
+import airport.management.system.terminalModule.model.Terminal;
+import airport.management.system.terminalModule.repository.TerminalRepository;
 import airport.management.system.terminalModule.util.BuildTerminalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,6 +41,12 @@ public class GateServiceImpl implements GateService{
 
     @Autowired
     private BuildTerminalResponse buildTerminalResponse;
+
+    @Autowired
+    private TerminalRepository terminalRepository;
+
+    @Autowired
+    private AirportRepository airportRepository;
 
     @Override
     public Object addNewGate(GateRequest gateRequest) {
@@ -191,6 +201,64 @@ public class GateServiceImpl implements GateService{
                 .orElseThrow(() -> new ApiException("No gate found by gateId: " + gateId));
 
         return responseBuilder.buildGateResponse2(existingGate);
+
+    }
+
+    @Override
+    public Object updateGateStatusById(Long gateId, String gateStatus) {
+
+        Gate existingGate = gateRepository.findById(gateId)
+                .orElseThrow(() -> new ApiException("No gate found by gateId: " + gateId));
+
+        GateStatusEnum typeEnum = GateStatusEnum.valueOf(gateStatus.toUpperCase());
+        GateStatus gateStatus1 = gateStatusRepository.findByGateStatus(typeEnum);
+
+        if(gateStatus1 == null) {
+
+            throw new ApiException("No gate found by gateStatus: " + gateStatus);
+
+        }
+
+        existingGate.setGateStatus(gateStatus1);
+        Gate newGate = gateRepository.save(existingGate);
+
+        return responseBuilder.buildGateResponse(newGate);
+
+    }
+
+    @Override
+    public Object assignTerminalToGate(Long terminalId, Long gateId) {
+
+        Terminal existingTerminal = terminalRepository.findById(terminalId)
+                .orElseThrow(() -> new ApiException("No terminal found by terminalId: " + terminalId));
+
+        Gate existingGate = gateRepository.findById(gateId)
+                .orElseThrow(() -> new ApiException("No gate found by gateId: " + gateId));
+
+        if (existingGate.getTerminal() != null) {
+
+            throw new ApiException("The gate is already assigned to the terminal by terminalId: " + existingGate.getTerminal().getTerminalId());
+
+        }
+
+        existingGate.setTerminal(existingTerminal);
+        existingTerminal.getGates().add(existingGate);
+
+        Airport existingAirport = existingTerminal.getAirport();
+        if (existingAirport != null) {
+
+            existingGate.setAirport(existingAirport);
+            existingAirport.getGates().add(existingGate);
+
+            airportRepository.save(existingAirport);
+            gateRepository.save(existingGate);
+
+        }
+
+        terminalRepository.save(existingTerminal);
+        Gate newGate = gateRepository.save(existingGate);
+
+        return responseBuilder.buildGateResponse2(newGate);
 
     }
 

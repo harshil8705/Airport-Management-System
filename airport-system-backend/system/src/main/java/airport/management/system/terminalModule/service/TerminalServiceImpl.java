@@ -5,6 +5,7 @@ import airport.management.system.airportModule.repository.AirportRepository;
 import airport.management.system.airportModule.response.AirportResponse;
 import airport.management.system.airportModule.utils.BuildAirportResponse;
 import airport.management.system.exceptionModule.ApiException;
+import airport.management.system.gateModule.model.Gate;
 import airport.management.system.terminalModule.model.Terminal;
 import airport.management.system.terminalModule.model.TerminalTypeEnum;
 import airport.management.system.terminalModule.repository.TerminalRepository;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -48,12 +50,12 @@ public class TerminalServiceImpl implements TerminalService {
                 .terminalCode(terminalRequest.getTerminalCode())
                 .location(terminalRequest.getLocation())
                 .isActive(terminalRequest.getIsActive())
-                .totalGates(terminalRequest.getTotalGates())
-                .gates(null)
+                .totalGates(0)
+                .gates(new ArrayList<>())
                 .airport(null)
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
-                .flights(null)
+                .flights(new ArrayList<>())
                 .build();
 
         Terminal newTerminal = terminalRepository.save(terminal);
@@ -141,7 +143,6 @@ public class TerminalServiceImpl implements TerminalService {
         existingTerminal.setUpdatedAt(LocalDateTime.now());
         existingTerminal.setIsActive(terminalRequest.getIsActive());
         existingTerminal.setLocation(terminalRequest.getLocation());
-        existingTerminal.setTotalGates(terminalRequest.getTotalGates());
 
         Terminal updatedTerminal = terminalRepository.save(existingTerminal);
 
@@ -228,6 +229,18 @@ public class TerminalServiceImpl implements TerminalService {
         existingTerminal.setAirport(existingAirport);
         existingTerminal.setUpdatedAt(LocalDateTime.now());
         existingAirport.getTerminals().add(existingTerminal);
+
+        List<Gate> existingGates = existingTerminal.getGates();
+        if (!existingGates.isEmpty()) {
+
+            existingAirport.getGates().addAll(existingGates);
+            for(Gate gate : existingGates) {
+                gate.setAirport(existingAirport);
+            }
+
+            airportRepository.save(existingAirport);
+
+        }
 
         airportRepository.save(existingAirport);
         Terminal updatedTerminal = terminalRepository.save(existingTerminal);

@@ -22,9 +22,6 @@ public class TerminalRequest {
     private String location;
 
     @NotNull
-    private Integer totalGates;
-
-    @NotNull
     private Boolean isActive;
 
     private Set<String> terminalTypes;

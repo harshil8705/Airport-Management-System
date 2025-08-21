@@ -85,4 +85,20 @@ public class GateController {
 
     }
 
+    @PutMapping("/admin/update-gate-status/gate-id/{gateId}")
+    public ResponseEntity<?> updateGateStatusById(
+            @PathVariable Long gateId,
+            @RequestParam(name = "gateStatus", defaultValue = "available", required = false) String gateStatus) {
+
+        return new ResponseEntity<>(gateService.updateGateStatusById(gateId, gateStatus), HttpStatus.OK);
+
+    }
+
+    @PutMapping("/admin/assign-terminal-gate/terminal-id/{terminalId}/gate-id/{gateId}")
+    public ResponseEntity<?> assignTerminalToGate(@PathVariable Long terminalId, @PathVariable Long gateId) {
+
+        return new ResponseEntity<>(gateService.assignTerminalToGate(terminalId, gateId), HttpStatus.OK);
+
+    }
+
 }
