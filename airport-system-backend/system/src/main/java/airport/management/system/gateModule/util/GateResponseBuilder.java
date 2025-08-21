@@ -6,6 +6,7 @@ import airport.management.system.gateModule.response.GateResponse;
 import airport.management.system.gateModule.response.GateResponse2;
 import airport.management.system.terminalModule.util.BuildTerminalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,6 +15,7 @@ public class GateResponseBuilder {
     @Autowired
     private BuildAirportResponse buildAirportResponse;
 
+    @Lazy
     @Autowired
     private BuildTerminalResponse buildTerminalResponse;
 

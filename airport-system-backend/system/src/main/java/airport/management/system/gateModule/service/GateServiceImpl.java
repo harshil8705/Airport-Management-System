@@ -8,7 +8,6 @@ import airport.management.system.gateModule.model.GateStatusEnum;
 import airport.management.system.gateModule.repository.GateRepository;
 import airport.management.system.gateModule.repository.GateStatusRepository;
 import airport.management.system.gateModule.request.GateRequest;
-import airport.management.system.gateModule.response.GateResponse2;
 import airport.management.system.gateModule.util.GateResponseBuilder;
 import airport.management.system.terminalModule.util.BuildTerminalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
