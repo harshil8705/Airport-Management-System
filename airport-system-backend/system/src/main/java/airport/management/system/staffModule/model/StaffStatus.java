@@ -12,10 +12,8 @@ import lombok.*;
 public class StaffStatus {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long staffStatusId;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private StaffStatusEnum staffStatus;
 

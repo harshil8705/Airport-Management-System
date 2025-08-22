@@ -59,7 +59,6 @@ public class Staff {
     @JoinColumn(name = "assigned_flight_fk_id")
     private Flight assignedFlight;
 
-    @NotNull
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
