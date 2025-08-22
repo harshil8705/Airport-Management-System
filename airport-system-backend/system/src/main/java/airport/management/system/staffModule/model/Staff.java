@@ -41,21 +41,18 @@ public class Staff {
     @NotNull
     private LocalDate dateOfBirth;
 
-    @NotNull
-    @OneToOne
+    @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "staff_roles_fk_id")
     private StaffRoles staffRoles;
 
-    @NotNull
-    @OneToOne
+    @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "staff_status_fk_id")
     private StaffStatus staffStatus;
 
-    @NotNull
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

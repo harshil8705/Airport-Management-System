@@ -15,6 +15,8 @@ public class BuildAirportResponse {
                 .city(airport.getCity())
                 .country(airport.getCountry())
                 .airportTypes(airport.getAirportTypes())
+                .totalTerminals(airport.getTerminals().isEmpty() ? 0 : airport.getTerminals().size())
+                .totalGates(airport.getGates().isEmpty() ? 0 : airport.getGates().size())
                 .build();
 
     }

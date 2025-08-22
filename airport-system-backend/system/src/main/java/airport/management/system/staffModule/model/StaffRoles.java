@@ -1,7 +1,6 @@
 package airport.management.system.staffModule.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -19,10 +18,5 @@ public class StaffRoles {
     @NotNull
     @Enumerated(EnumType.STRING)
     private StaffRolesEnum staffRoles;
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToOne(mappedBy = "staffRoles", cascade = CascadeType.ALL)
-    private Staff staff;
 
 }

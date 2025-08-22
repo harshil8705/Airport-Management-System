@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -45,11 +46,11 @@ public class AirportServiceImpl implements AirportService {
                 .airportName(airportRequest.getAirportName())
                 .city(airportRequest.getCity())
                 .country(airportRequest.getCountry())
-                .staff(null)
-                .gates(null)
-                .outgoingFlight(null)
-                .incomingFlight(null)
-                .terminals(null)
+                .staff(new ArrayList<>())
+                .gates(new ArrayList<>())
+                .outgoingFlight(new ArrayList<>())
+                .incomingFlight(new ArrayList<>())
+                .terminals(new ArrayList<>())
                 .build();
 
         Airport newAirport = airportRepository.save(airport);
@@ -237,6 +238,8 @@ public class AirportServiceImpl implements AirportService {
                 .outgoingFlight(existingAirport.getOutgoingFlight())
                 .city(existingAirport.getCity())
                 .airportTypes(existingAirport.getAirportTypes())
+                .totalTerminals(existingAirport.getTerminals().isEmpty() ? 0 : existingAirport.getTerminals().size())
+                .totalGates(existingAirport.getGates().isEmpty() ? 0 : existingAirport.getGates().size())
                 .build();
 
     }

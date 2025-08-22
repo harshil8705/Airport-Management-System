@@ -19,9 +19,4 @@ public class StaffStatus {
     @Enumerated(EnumType.STRING)
     private StaffStatusEnum staffStatus;
 
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToOne(mappedBy = "staffStatus", cascade = CascadeType.ALL)
-    private Staff staff;
-
 }
