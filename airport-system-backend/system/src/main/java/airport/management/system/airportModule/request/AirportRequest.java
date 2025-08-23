@@ -15,8 +15,6 @@ import java.util.Set;
 @AllArgsConstructor
 public class AirportRequest {
 
-    private Long airportId;
-
     @NotBlank
     @Column(unique = true)
     private String airportName;

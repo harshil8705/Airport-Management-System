@@ -51,6 +51,8 @@ public class AirportServiceImpl implements AirportService {
                 .outgoingFlight(new ArrayList<>())
                 .incomingFlight(new ArrayList<>())
                 .terminals(new ArrayList<>())
+                .totalGates(0)
+                .totalTerminals(0)
                 .build();
 
         Airport newAirport = airportRepository.save(airport);

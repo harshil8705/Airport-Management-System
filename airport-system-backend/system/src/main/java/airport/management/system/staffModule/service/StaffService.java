@@ -8,4 +8,16 @@ public interface StaffService {
 
     Object getStaffById(Long staffId);
 
+    Object getStaffByName(String name, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
+
+    Object getStaffByRoles(String staffRole, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
+
+    Object getStaffByStatus(String staffStatus, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
+
+    Object findAllStaff(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
+
+    Object updateStaffById(Long staffId, StaffRequest staffRequest);
+
+    Object deleteStaffById(Long staffId);
+
 }
