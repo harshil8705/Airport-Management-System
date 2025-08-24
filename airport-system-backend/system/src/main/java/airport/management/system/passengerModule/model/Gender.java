@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Gender {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long genderId;
 
     @Enumerated(EnumType.STRING)

@@ -20,7 +20,7 @@ public class GovtIdDataInitializer {
 
             GovtId aadhar = GovtId.builder()
                     .govtId(1L)
-                    .govtIdEnum(GovtIdEnum.AADHAAR)
+                    .govtIdEnum(GovtIdEnum.AADHAR)
                     .build();
             govtIdRepository.save(aadhar);
 

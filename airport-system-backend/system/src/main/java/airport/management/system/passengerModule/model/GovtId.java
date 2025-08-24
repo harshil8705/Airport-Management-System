@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 public class GovtId {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long govtId;
 
     @Enumerated(EnumType.STRING)

@@ -2,7 +2,7 @@ package airport.management.system.passengerModule.model;
 
 public enum GovtIdEnum {
 
-    AADHAAR,
+    AADHAR,
     PAN_CARD
 
 }
