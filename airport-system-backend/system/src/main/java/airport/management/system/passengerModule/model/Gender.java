@@ -12,17 +12,10 @@ import lombok.*;
 @AllArgsConstructor
 public class Gender {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long genderId;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private GenderEnum gender;
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToOne(mappedBy = "passengerGender", cascade = CascadeType.ALL)
-    private Passenger passenger;
 
 }

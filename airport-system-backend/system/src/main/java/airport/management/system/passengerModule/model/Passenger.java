@@ -34,12 +34,11 @@ public class Passenger {
     @Length(max = 150)
     private String lastName;
 
-    @NotNull
-    @OneToOne
+    @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "passenger_gender_fk_id")
-    private Gender passengerGender;
+    @JoinColumn(name = "gender_fk_id")
+    private Gender gender;
 
     @NotNull
     private LocalDate dateOfBirth;
@@ -65,12 +64,11 @@ public class Passenger {
     @NotBlank
     private String nationality;
 
-    @NotNull
-    @OneToOne
+    @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "passenger_govt_fk_id")
-    private GovtId passengerGovtId;
+    @JoinColumn(name = "govt_fk_id")
+    private GovtId govtId;
 
     @NotNull
     private LocalDateTime createdAt;

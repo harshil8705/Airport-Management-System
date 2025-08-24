@@ -12,17 +12,10 @@ import lombok.*;
 @AllArgsConstructor
 public class GovtId {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long passengerGovtId;
+    private Long govtId;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    private GovtIdEnum govtId;
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToOne(mappedBy = "passengerGovtId", cascade = CascadeType.ALL)
-    private Passenger passenger;
+    private GovtIdEnum govtIdEnum;
 
 }
