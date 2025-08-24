@@ -41,6 +41,9 @@ public class Airport {
     @NotNull
     private Integer totalGates;
 
+    @NotNull
+    private Integer totalStaff;
+
     @ManyToMany
     @Builder.Default
     @ToString.Exclude

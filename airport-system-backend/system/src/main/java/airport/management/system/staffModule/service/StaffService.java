@@ -20,4 +20,8 @@ public interface StaffService {
 
     Object deleteStaffById(Long staffId);
 
+    Object getCompleteStaffDetailsById(Long staffId);
+
+    Object assignAirportToStaff(Long airportId, Long staffId);
+
 }

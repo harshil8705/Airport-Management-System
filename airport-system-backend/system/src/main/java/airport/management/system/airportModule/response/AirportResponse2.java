@@ -5,6 +5,7 @@ import airport.management.system.flightModule.model.Flight;
 import airport.management.system.gateModule.model.Gate;
 import airport.management.system.gateModule.response.GateResponse;
 import airport.management.system.staffModule.model.Staff;
+import airport.management.system.staffModule.response.StaffResponse;
 import airport.management.system.terminalModule.model.Terminal;
 import airport.management.system.terminalModule.response.TerminalResponse;
 import lombok.*;
@@ -26,6 +27,7 @@ public class AirportResponse2 {
     private String country;
     private Integer totalTerminals;
     private Integer totalGates;
+    private Integer totalStaff;
 
     @Builder.Default
     private Set<AirportType> airportTypes = new HashSet<>();
@@ -37,7 +39,7 @@ public class AirportResponse2 {
     private List<Flight> incomingFlight = new ArrayList<>();
 
     @Builder.Default
-    private List<Staff> staff = new ArrayList<>();
+    private List<StaffResponse> staff = new ArrayList<>();
 
     @Builder.Default
     private List<GateResponse> gates = new ArrayList<>();

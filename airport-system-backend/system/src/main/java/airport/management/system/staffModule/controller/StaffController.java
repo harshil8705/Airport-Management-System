@@ -92,4 +92,18 @@ public class StaffController {
 
     }
 
+    @GetMapping("/admin/get-staff-details/staff-id/{staffId}")
+    public ResponseEntity<?> getCompleteStaffDetailsById(@PathVariable Long staffId) {
+
+        return new ResponseEntity<>(staffService.getCompleteStaffDetailsById(staffId), HttpStatus.FOUND);
+
+    }
+
+    @PutMapping("/admin/assign-airport/airport-id/{airportId}/staff-id/{staffId}")
+    public ResponseEntity<?> assignAirportToStaff(@PathVariable Long airportId, @PathVariable Long staffId) {
+
+        return new ResponseEntity<>(staffService.assignAirportToStaff(airportId, staffId), HttpStatus.OK);
+
+    }
+
 }

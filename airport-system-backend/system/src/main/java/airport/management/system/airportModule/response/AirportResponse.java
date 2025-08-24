@@ -18,6 +18,7 @@ public class AirportResponse {
     private String country;
     private Integer totalTerminals;
     private Integer totalGates;
+    private Integer totalStaff;
 
     @Builder.Default
     private Set<AirportType> airportTypes = new HashSet<>();

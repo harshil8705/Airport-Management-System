@@ -1,5 +1,7 @@
 package airport.management.system.staffModule.service;
 
+import airport.management.system.airportModule.model.Airport;
+import airport.management.system.airportModule.repository.AirportRepository;
 import airport.management.system.exceptionModule.ApiException;
 import airport.management.system.staffModule.model.*;
 import airport.management.system.staffModule.repository.StaffRepository;
@@ -31,6 +33,9 @@ public class StaffServiceImpl implements StaffService{
 
     @Autowired
     private StaffResponseBuilder staffResponseBuilder;
+
+    @Autowired
+    private AirportRepository airportRepository;
 
     @Override
     public Object addNewStaff(StaffRequest staffRequest) {
@@ -222,5 +227,39 @@ public class StaffServiceImpl implements StaffService{
 
     }
 
+    @Override
+    public Object getCompleteStaffDetailsById(Long staffId) {
+
+        Staff existingStaff = staffRepository.findById(staffId)
+                .orElseThrow(() -> new ApiException("No staff found by staffId: " + staffId));
+
+        return staffResponseBuilder.buildStaffResponse2(existingStaff);
+
+    }
+
+    @Override
+    public Object assignAirportToStaff(Long airportId, Long staffId) {
+
+        Airport existingAirport = airportRepository.findById(airportId)
+                .orElseThrow(() -> new ApiException("No airport found by airportId: " + airportId));
+
+        Staff existingStaff = staffRepository.findById(staffId)
+                .orElseThrow(() -> new ApiException("No staff found by staffId: " + staffId));
+
+        if (existingStaff.getAssignedAirport() != null) {
+
+            throw new ApiException("Staff with staffId: " + staffId + " is already assigned to the Airport with airportId: " + existingStaff.getAssignedAirport().getAirportId());
+
+        }
+
+        existingStaff.setAssignedAirport(existingAirport);
+        existingAirport.getStaff().add(existingStaff);
+
+        Staff updatedStaff = staffRepository.save(existingStaff);
+        airportRepository.save(existingAirport);
+
+        return staffResponseBuilder.buildStaffResponse2(updatedStaff);
+
+    }
 
 }

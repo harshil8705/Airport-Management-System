@@ -9,6 +9,7 @@ import airport.management.system.airportModule.response.AirportResponse2;
 import airport.management.system.airportModule.utils.BuildAirportResponse;
 import airport.management.system.exceptionModule.ApiException;
 import airport.management.system.gateModule.util.GateResponseBuilder;
+import airport.management.system.staffModule.util.StaffResponseBuilder;
 import airport.management.system.terminalModule.util.BuildTerminalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,6 +40,9 @@ public class AirportServiceImpl implements AirportService {
     @Autowired
     private GateResponseBuilder gateResponseBuilder;
 
+    @Autowired
+    private StaffResponseBuilder staffResponseBuilder;
+
     @Override
     public Object addNewAirport(AirportRequest airportRequest) {
 
@@ -53,6 +57,7 @@ public class AirportServiceImpl implements AirportService {
                 .terminals(new ArrayList<>())
                 .totalGates(0)
                 .totalTerminals(0)
+                .totalStaff(0)
                 .build();
 
         Airport newAirport = airportRepository.save(airport);
@@ -236,12 +241,14 @@ public class AirportServiceImpl implements AirportService {
                 .gates(existingAirport.getGates().stream().map(gate -> gateResponseBuilder.buildGateResponse(gate)).toList())
                 .country(existingAirport.getCountry())
                 .terminals(existingAirport.getTerminals().stream().map(terminal -> terminalResponse.buildTerminalResponse(terminal)).toList())
+                .staff(existingAirport.getStaff().stream().map(staff -> staffResponseBuilder.buildStaffResponse(staff)).toList())
                 .incomingFlight(existingAirport.getIncomingFlight())
                 .outgoingFlight(existingAirport.getOutgoingFlight())
                 .city(existingAirport.getCity())
                 .airportTypes(existingAirport.getAirportTypes())
                 .totalTerminals(existingAirport.getTerminals().isEmpty() ? 0 : existingAirport.getTerminals().size())
                 .totalGates(existingAirport.getGates().isEmpty() ? 0 : existingAirport.getGates().size())
+                .totalStaff(existingAirport.getStaff().isEmpty() ? 0 : existingAirport.getStaff().size())
                 .build();
 
     }
