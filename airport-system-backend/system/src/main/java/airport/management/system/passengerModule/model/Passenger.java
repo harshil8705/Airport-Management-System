@@ -45,9 +45,11 @@ public class Passenger {
 
     @Email
     @NotBlank
+    @Column(unique = true)
     private String email;
 
     @NotBlank
+    @Column(unique = true)
     private String phoneNumber;
 
     @ToString.Exclude
@@ -56,6 +58,7 @@ public class Passenger {
     private Address address;
 
     @NotBlank
+    @Column(unique = true)
     private String passportNumber;
 
     @NotNull
