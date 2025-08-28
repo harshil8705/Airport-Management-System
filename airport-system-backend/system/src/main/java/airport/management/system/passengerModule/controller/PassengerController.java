@@ -97,5 +97,4 @@ public class PassengerController {
         return new ResponseEntity<>(passengerService.getCompletePassengerDetails(passengerId), HttpStatus.FOUND);
 
     }
-
 }
