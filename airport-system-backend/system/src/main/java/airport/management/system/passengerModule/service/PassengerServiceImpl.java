@@ -104,7 +104,7 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     public List<?> getPassengerByGender(String gender, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
 
-        GenderEnum typeEnum = GenderEnum.valueOf(gender);
+        GenderEnum typeEnum = GenderEnum.valueOf(gender.toUpperCase());
         Gender gender1 = genderRepository.findByGender(typeEnum);
         if (gender1 == null) {
             throw new ApiException("No gender found by gender: " + gender);
@@ -115,7 +115,7 @@ public class PassengerServiceImpl implements PassengerService {
                 : Sort.by(sortBy).descending();
 
         Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
-        Page<Passenger> passengerPage = passengerRepository.findByGenderContainingIgnoreCase(gender1, pageDetails);
+        Page<Passenger> passengerPage = passengerRepository.findByGender(gender1, pageDetails);
 
         List<Passenger> passengers = passengerPage.getContent();
         if (passengers.isEmpty()) {

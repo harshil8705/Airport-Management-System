@@ -14,12 +14,12 @@ public interface PassengerRepository extends JpaRepository<Passenger, Long> {
 
     Page<Passenger> findByFirstNameContainingIgnoreCase(String firstName, Pageable pageDetails);
 
-    Page<Passenger> findByGenderContainingIgnoreCase(Gender gender1, Pageable pageDetails);
-
     Optional<Passenger> findByEmail(String email);
 
     Optional<Passenger> findByPhoneNumber(String phoneNumber);
 
     Optional<Passenger> findByPassportNumber(String passportNumber);
+
+    Page<Passenger> findByGender(Gender gender1, Pageable pageDetails);
 
 }

@@ -31,7 +31,7 @@ public class PassengerController {
 
     }
 
-    @GetMapping("/admin/get-passenger/first-name/{firstname}")
+    @GetMapping("/admin/get-passenger/first-name/{firstName}")
     public ResponseEntity<List<?>> getPassengerByFirstName(
             @PathVariable String firstName,
             @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
@@ -97,4 +97,5 @@ public class PassengerController {
         return new ResponseEntity<>(passengerService.getCompletePassengerDetails(passengerId), HttpStatus.FOUND);
 
     }
+
 }
